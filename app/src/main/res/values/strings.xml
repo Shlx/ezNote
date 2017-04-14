@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ezNote</string>
+    <string name="untitled_note">Untitled Note</string>
+    <string name="title">Title</string>
+    <string name="search_for_tags">Search for tags</string>
+    <string name="no_tags">This note has not been tagged</string>
+
+</resources>
