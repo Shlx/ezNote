@@ -9,6 +9,8 @@ import java.util.List;
 /** Note object class, has some basic functionality */
 public class Note {
 
+    public static long ONE_DAY = 1000 * 60 *60 * 24;
+
     /** Member variables */
     private String title;
     private String content;
@@ -30,9 +32,23 @@ public class Note {
         return this.tags.containsAll(tags);
     }
 
-    /** Get the formatted date of a note */
+    /**
+     * Get the formatted String for the note's date
+     * @return      If the note is older than a day the String will show a date.
+     *              Otherwise, if the note is no older than 24 hours, the String will show a time.
+     */
     public String getFormattedDate() {
-        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yy HH:mm");
+        long now = new Date().getTime();
+        long noteDate = date.getTime();
+
+        DateFormat dateFormat;
+
+        if (now - noteDate < ONE_DAY) {
+            dateFormat = new SimpleDateFormat("HH:mm");
+        } else {
+            dateFormat = new SimpleDateFormat("dd.MM.yy");
+        }
+
         return dateFormat.format(date);
     }
 

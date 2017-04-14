@@ -33,11 +33,10 @@ class NotePrefs {
         if (settings == null) {
             settings = ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         }
-
-        editor = settings.edit();
     }
 
     public void delete() {
+        editor = settings.edit();
         if (!editor.clear().commit()) {
             throw new RuntimeException("Could not clear the editor");
         }
@@ -55,6 +54,7 @@ class NotePrefs {
 
     /** Updates the ID, Note HashMap */
     private void updateNotes(HashMap<Integer, Note> idToNote) {
+        editor = settings.edit();
         if (!editor.putString(ALL_NOTES, gson.toJson(idToNote)).commit()) {
             throw new RuntimeException("Could not write notes to preferences");
         }
@@ -102,6 +102,7 @@ class NotePrefs {
     /** Increase the current ID and return it */
     private int nextId() {
         int nextId = getCurrentId() + 1;
+        editor = settings.edit();
         if (!editor.putString(CURRENT_ID, gson.toJson(nextId)).commit()) {
             throw new RuntimeException("Could not write current ID to preferences");
         }
@@ -125,6 +126,7 @@ class NotePrefs {
 
     /** Save all tags */
     private void updateTagCounts(HashMap<String, Integer> tagToCount) {
+        editor = settings.edit();
         if (!editor.putString(ALL_TAGS, gson.toJson(tagToCount)).commit()) {
             throw new RuntimeException("Could not write tag counts");
         }

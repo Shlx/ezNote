@@ -4,15 +4,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_vertical_margin"
-    tools:context="marvin.ezNote.activity.NoteListActivity">
+    android:paddingLeft="@dimen/large_margin"
+    android:paddingRight="@dimen/large_margin"
+    android:paddingTop="@dimen/small_margin"
+    tools:context="marvin.ezNote.activity.NoteListActivity"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <EditText
-        android:id="@+id/editTextSearchTags"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/search_for_tags"
-        android:inputType="textNoSuggestions" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextSearchTags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_for_tags"
+            android:inputType="textNoSuggestions"
+            android:cursorVisible="false" />
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/myFAB"
@@ -23,15 +35,28 @@
         app:elevation="4dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginBottom="15dp" />
+
+    <!-- Horrible hack -->
+
+    <Space
+        android:id="@+id/spaceAboveList"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
 
     <ListView
         android:id="@+id/listViewNotes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="@dimen/small_margin"
+        android:paddingRight="@dimen/small_margin"
+        android:scrollbars="none"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:listSelector="@android:color/transparent"
+        android:overScrollMode="never"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/editTextSearchTags"
-        android:layout_marginTop="28dp" />
+        android:layout_below="@+id/spaceAboveList" />
 
 </RelativeLayout>

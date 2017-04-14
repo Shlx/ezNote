@@ -13,6 +13,7 @@ import android.widget.ListView;
 import java.util.Arrays;
 import java.util.List;
 
+import marvin.ezNote.ezNote;
 import marvin.ezNote.note.NoteAdapter;
 import marvin.ezNote.R;
 import marvin.ezNote.note.Note;
@@ -29,7 +30,7 @@ public class NoteListActivity extends AppCompatActivity {
     ListView listViewNotes;
     NoteAdapter noteAdapter;
 
-    public List<Note> allNotes;
+    public static List<Note> allNotes;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,8 +40,20 @@ public class NoteListActivity extends AppCompatActivity {
         noteHandler = new NoteHandler(this);
         //noteHandler.delete(); // Delete EVERYTHING
 
+        setTitle("All notes");
+
         editTextSearchTags = (EditText) findViewById(R.id.editTextSearchTags);
         addTagTextWatcher();
+        editTextSearchTags.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus){
+                    editTextSearchTags.setHint("");
+                } else {
+                    editTextSearchTags.setHint(ezNote.getContext().getResources().getString(R.string.search_for_tags));
+                }
+            }
+        });
         listViewNotes = (ListView) findViewById(R.id.listViewNotes);
 
     }
@@ -48,7 +61,10 @@ public class NoteListActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        allNotes = noteHandler.getAllNotes();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        View current = getCurrentFocus();
+        if (current != null) current.clearFocus();
         showAllNotes();
         editTextSearchTags.setText("");
     }
@@ -61,7 +77,6 @@ public class NoteListActivity extends AppCompatActivity {
     }
 
     private void showAllNotes() {
-        allNotes = noteHandler.getAllNotes();
         showNotes(allNotes);
     }
 
@@ -84,8 +99,11 @@ public class NoteListActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0) {
                     showTaggedNotes(s.toString());
+                    int tagCount = noteHandler.getNotesTaggedWith(s.toString()).size();
+                    setTitle("Tagged with \"" + s + "\" (" + tagCount + ")");
                 } else {
                     showAllNotes();
+                    setTitle("All notes");
                 }
             }
 

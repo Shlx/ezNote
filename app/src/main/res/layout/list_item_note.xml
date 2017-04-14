@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="80dp"
-    android:padding="@dimen/activity_vertical_margin"
+    android:padding="@dimen/large_margin"
     android:weightSum="1"
     android:animateLayoutChanges="true" >
 
@@ -22,16 +22,26 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <TextView
+        android:id="@+id/listItemDate"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="top|end"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/listItemDeleteButton" />
+
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/listItemDeleteButton"
         android:tint="#d74313"
         app:srcCompat="@drawable/delete"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_centerVertical="true"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:visibility="gone" />
+        android:layout_alignParentBottom="true" />
 
 
 </RelativeLayout>

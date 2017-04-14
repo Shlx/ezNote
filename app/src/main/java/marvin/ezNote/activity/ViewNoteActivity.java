@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -42,7 +43,6 @@ public class ViewNoteActivity extends AppCompatActivity {
 
         editTextNoteTitle = (EditText) findViewById(R.id.editTextNoteTitle);
         editTextNoteContent = (EditText) findViewById(R.id.editTextNoteContent);
-        addTextWatchers();
 
         int id = intent.getIntExtra(NoteListActivity.NOTE_ID, -1);
         if (id >= 0) {
@@ -53,6 +53,9 @@ public class ViewNoteActivity extends AppCompatActivity {
         } else {
             newNote = true;
         }
+
+        addTextWatchers();
+
     }
 
     @Override
@@ -145,13 +148,13 @@ public class ViewNoteActivity extends AppCompatActivity {
         if (newNote) {
             Note note = new Note(title, content);
             noteHandler.saveNote(note);
+            chooseTags();
         } else {
             currentNote.setTitle(title);
             currentNote.setContent(content);
             currentNote.setDate(new Date());
             noteHandler.saveNote(currentNote);
         }
-        chooseTags();
         super.onBackPressed();
     }
 

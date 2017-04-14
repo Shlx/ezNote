@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
+import marvin.ezNote.activity.NoteListActivity;
+
 /** Handles notes */
 public class NoteHandler {
 
@@ -101,6 +103,7 @@ public class NoteHandler {
     //////////
 
     public List<Note> getNotesTaggedWith(List<Note> notes, List<String> tags) {
+        LOGGER.info("getNotesTaggedWith(notes, " + tags + ")");
         List<Note> taggedNotes = new ArrayList<>();
 
         for (Note note : notes) {
@@ -110,6 +113,14 @@ public class NoteHandler {
         }
 
         return taggedNotes;
+    }
+
+    public List<Note> getNotesTaggedWith(List<String> tags) {
+        return getNotesTaggedWith(NoteListActivity.allNotes, tags);
+    }
+
+    public List<Note> getNotesTaggedWith(String tag) {
+        return getNotesTaggedWith(NoteListActivity.allNotes, new ArrayList<>(Collections.singleton(tag)));
     }
 
     /** Get all tag counts */
